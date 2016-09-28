@@ -1,0 +1,143 @@
+body {
+	background-color: #FAEFEB;
+}
+
+#backgr {
+	position: fixed;
+	left: 50%;
+	margin-left: -660px; 
+	width: 1320px;
+	height: 100%;
+	background-color: #cfbeb7;
+}
+
+.menu {
+	position:fixed;
+	left: 50%;
+	margin-left: -850px;
+	width: 1700px;
+	height: 120px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	background-color: #9d6f89;
+	box-shadow: 2px 4px 16px 3px #36222A;
+
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 23px;
+	font-family: 'Lobster';
+	font-weight: medium;
+}
+
+#header {
+	width: 340px;
+	height: 190px;
+	border-bottom-left-radius: 45px;
+	border-bottom-right-radius: 45px;
+	float: left;
+	margin-left: 100px;
+	background-color: #633f5b;
+
+	border: 5px dashed #FFFFFF;
+	border-top: none;
+	box-shadow: 0 0 0 10px #633f5b,
+	8px 18px 24px 10px #36222A;
+
+	padding-top: 45px;
+	font-size: 65px;
+}
+
+#cart {
+	width: 165px;
+	height: 165px;
+	border-bottom-left-radius: 35px;
+	border-bottom-right-radius: 35px;
+	float: right;
+	margin-right: 130px;
+	background-color: #633f5b;
+
+	border: 5px dashed #FFFFFF;
+	border-top: none;
+	box-shadow: 0 0 0 10px #633f5b,
+	/*6px 12px 24px 12px #291820;*/
+	8px 18px 24px 10px #36222A;
+
+	padding-top: 10px;
+	font-size: 37px;
+}
+
+#cart .glyphicon {
+	padding-top: 7px;
+	font-size: 60px;
+}
+
+.navbar {
+	display: inline-block;
+	width: 160px;
+	margin-top: 40px;
+	border-bottom: 3px dashed #FFFFFF;
+	line-height: 2em;
+}
+
+a {
+	color: #FFFFFF;
+}
+a:hover {
+	text-decoration: none;
+}
+a:hover #header {
+	color: #e79b9d;
+	border-color: #e79b9d;
+}
+a:hover #cart {
+	color: #e79b9d;
+	border-color: #e79b9d;
+}
+a:hover .navbar {
+	color: #e79b9d;
+	border-color: #e79b9d;
+}
+
+
+.page_header {
+	position: absolute;
+	margin-left: 340px;
+	margin-top: 160px;
+	width: 650px;
+
+	text-align: center;
+	color: #633f5b;
+	font-size: 60px;
+	font-family: 'Lobster';
+	font-weight: medium;
+}
+
+table {
+	position: absolute;
+	left: 50%;
+	margin-left: -555px;
+	margin-top: 300px;
+	width: 1150px;
+}
+
+.catalog {
+	width: 350px;
+	height: 425px;
+	background-color: #FFFFFF;
+	padding: 25px 25px 100px 25px;
+	box-shadow: 2px 4px 16px 3px #36222A;
+
+	text-align: center;
+	color: #633f5b;
+	font-family: 'Lobster';
+	font-size: 50px;
+}
+
+a:hover .catalog {
+	color: #9d6f89;
+}
+
+img {
+	width: 300px;
+	height: 300px;
+}

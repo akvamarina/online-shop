@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+	<head>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+		<link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+		<title>BAKERY</title>
+	</head>
+
+	<body>
+		<div id="backgr">
+			<div class="menu">
+				<a href="{% url 'main_page' %}">
+					<div id="header">
+						BAKERY
+					</div>
+				</a>
+
+				<a href="{% url 'cart' %}">
+					<div id="cart">
+						Корзина
+						<span class="glyphicon glyphicon-shopping-cart"></span>
+					</div>
+				</a>
+
+				<div>
+					<a href="{% url 'main_page' %}"><div class="navbar">Магазин</div></a>
+					<a href="{% url 'sales' %}"><div class="navbar">Акции</div></a>
+					<a href="{% url 'delivery' %}"><div class="navbar">Доставка</div></a>
+					<a href="{% url 'contacts' %}"><div class="navbar">Контакты</div></a>
+					<a href=""><div class="navbar">Войти</div></a>
+				</div>
+			</div>
+
+			{% block content %}
+			{% endblock %}
+
+		</div>
+
+	</body>
+</html>
