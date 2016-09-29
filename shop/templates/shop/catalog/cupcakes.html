@@ -3,13 +3,24 @@
 {% block content %}
 	<div class="page_header">Капкейки</div>
 
-	<table>
-		<tr>
-			<td><a href=""><div class="catalog">
-				<img src="https://pp.vk.me/c637116/v637116849/ce77/YvwCl_2yuaI.jpg"/>
-				<p>Капкейки</p>
-			</div></a></td>
-		</tr>
+	<table class="product_table">
+		{% for cupcake_info in cupcakes_list %}
+			<tr>
+				<td>
+					<div class="catalog">
+						<img src="{{ cupcake_info.photo }}"/>
+					</div>
+				</td>
+				<td>
+					<div class="product_info"> 
+						<p> {{ cupcake_info.name }} </p>
+						<p> {{ cupcake_info.description }} </p>
+						<p> Цена (1 шт.): {{ cupcake_info.price }} руб.</p>
+						<p> Осталось: {{ cupcake_info.quantity_on_stock }} </p>
+					</div>
+				</td>
+			</tr>
+		{% endfor %}
 	</table>
 
 {% endblock %}

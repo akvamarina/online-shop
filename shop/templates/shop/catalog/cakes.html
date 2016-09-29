@@ -3,13 +3,24 @@
 {% block content %}
 	<div class="page_header">Торты</div>
 
-	<table>
-		<tr>
-			<td><a href=""><div class="catalog">
-				<img src="https://pp.vk.me/c637116/v637116849/ce69/_l_1xvqYoi0.jpg"/>
-				<p>Торты</p>
-			</div></a></td>
-		</tr>
+	<table class="product_table">
+		{% for cake_info in cakes_list %}
+			<tr>
+				<td>
+					<div class="catalog">
+						<img src="{{ cake_info.photo }}"/>
+					</div>
+				</td>
+				<td>
+					<div class="product_info"> 
+						<p> {{ cake_info.name }} </p>
+						<p> {{ cake_info.description }} </p>
+						<p> Цена (1 шт.): {{ cake_info.price }} руб.</p>
+						<p> Осталось: {{ cake_info.quantity_on_stock }} </p>
+					</div>
+				</td>
+			</tr>
+		{% endfor %}
 	</table>
 
 {% endblock %}
