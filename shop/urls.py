@@ -1,5 +1,7 @@
-from django.conf.urls import url	#импорт всех методов django
+from django.conf.urls import include, url
 from . import views		#импорт всех представлений из приложения shop
+import paypal.standard.ipn.urls
+
 
 urlpatterns = [
 	url(r'^$', views.main_page, name='main_page'),
@@ -13,4 +15,8 @@ urlpatterns = [
 	url(r'^product/(?P<product_id>[0-9]+)/$', views.product, name='product'),
 	url(r'^accounts/logout/$', views.account_logout, name='logout'),
     url(r'^accounts/profile/$', views.account_profile, name='profile'),
+    # 
+    url(r'^payment/cart/$', views.paypal_pay, name='pay_cart'),
+    url(r'^payment/success/$', views.paypal_success, name='success'),
+    url(r'^paypal/', include(paypal.standard.ipn.urls)),
 ]

@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="{% static 'css/shop.css' %}">
 		<link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Cormorant+Infant" rel="stylesheet">
 		<title>Bird-cherry Bakery</title>
 	</head>
 
@@ -26,17 +27,15 @@
 				</a>
 
 				<div>
-					<!-- <a href="{% url 'main_page' %}"><div class="navbar">Магазин</div></a> -->
-					<!-- <a href="{% url 'sales' %}"><div class="nav_bar">Акции</div></a> -->
 					<a href="{% url 'delivery' %}"><div class="nav_bar">Доставка</div></a>
 					<a href="{% url 'contacts' %}"><div class="nav_bar">Контакты</div></a>
 					{% if user.is_authenticated %}
 						<a href="{% url 'logout' %}"><div class="auth_menu">
 							Выйти
 						</div></a>
-						<a href="{% url 'profile' %}"><div class="auth_menu">
+<!-- 						<a href="{% url 'profile' %}"><div class="auth_menu">
 							Профиль
-						</div></a>
+						</div></a> -->
 					{% else %}
 						<a href="/login/vk-oauth2/"><div class="auth_menu">
 							Войти

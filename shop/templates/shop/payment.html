@@ -1,0 +1,17 @@
+
+{% extends 'shop/base_menu.html' %}
+
+{% block content %}
+	<div class="page_header">Оплата заказа</div>
+
+	<div class="pay_info">
+		<p>You are to pay:</p>
+
+		<p>{{ paypal_dict.amount }} {{ paypal_dict.currency_code }}</p>
+		<p>Invoice: {{ paypal_dict.invoice }}</p>
+		<br />
+		<p>Pay with PayPal:</p>
+		{{ form.render }}
+	</div>
+
+{% endblock %}

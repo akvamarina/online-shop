@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'shop',
     'social.apps.django_app.default',
-    # 'cart',
+    'paypal.standard.ipn',
 )
 
 MIDDLEWARE_CLASSES = (

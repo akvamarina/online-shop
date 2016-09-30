@@ -14,7 +14,7 @@
 						<p> {{ product.name }} </p>
 						<p> {{ product.description }} </p>
 						<p> Цена (1 шт.): {{ product.price }} руб.</p>
-						<p> Осталось: {{ product.quantity_on_stock }} </p>
+<!-- 						<p> Осталось: {{ product.quantity_on_stock }} </p> -->
 					</div>
 
 					<form method="POST" class="add_to_cart_form">{% csrf_token %}

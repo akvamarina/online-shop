@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.core.urlresolvers import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+import time
+import datetime
 from .models import Product
 from .models import Category
 from .models import Cart
 from .models import ProductCart
 from .forms import ProductCartForm
-# from cart.cart import Cart
 
 
 def main_page(request):
@@ -60,11 +64,40 @@ def cart(request):
 
 def get_cart(request):
 	if request.user.is_authenticated():
-		if Cart.objects.filter(user=request.user).exists():
-			return Cart.objects.filter(user=request.user).latest('date_added')
+		if Cart.objects.filter(user=request.user, archived=False).exists():
+			return Cart.objects.filter(user=request.user, archived=False).latest('date_added')
 		return Cart.objects.create(user=request.user)
 	if 'token' in request.session:
 		return Cart.objects.filter(token=request.session['token']).latest('date_added')
 	cart = Cart.objects.create(user=None)
 	request.session['token'] = cart.token
 	return cart
+
+@csrf_exempt
+def paypal_success(request):
+	cart = get_cart(request)
+	cart.archived = True
+	cart.save()
+	return HttpResponse("Thanks.")
+
+@login_required
+def paypal_pay(request):
+	cart = get_cart(request)
+	product_cart_list = []
+	for product_cart in ProductCart.objects.filter(cart=cart):
+		product_cart_list.append(product_cart.product.name)
+	paypal_dict = {
+		"business": "vanja9.10.96-facilitator@gmail.com",
+        "amount": cart.total_price,
+        "currency_code": "RUB",
+        "item_name": product_cart_list,
+        "invoice": "INV-" + str(int(time.time())),
+        "notify_url": reverse('paypal-ipn'),
+        "return_url": "http://localhost:8000/payment/success/",
+        "cancel_return": "http://localhost:8000/payment/cart/",
+        "custom": str(request.user.id)
+	}
+
+	form = PayPalPaymentsForm(initial=paypal_dict)
+	return render(request, 'shop/payment.html', 
+		{'form': form, 'paypal_dict': paypal_dict})

@@ -25,8 +25,8 @@ body {
 	color: #FFFFFF;
 	text-align: center;
 	font-size: 30px;
-	font-family: 'Lobster';
-	font-weight: medium;
+	font-family: 'Cormorant Infant', serif;
+	font-weight: bold;
 }
 
 #header {
@@ -60,7 +60,6 @@ body {
 	border: 5px dashed #FFFFFF;
 	border-top: none;
 	box-shadow: 0 0 0 10px #633f5b,
-	/*6px 12px 24px 12px #291820;*/
 	8px 18px 24px 10px #36222A;
 
 	padding-top: 10px;
@@ -133,7 +132,7 @@ a:hover #vk_auth {
 	text-align: center;
 	color: #633f5b;
 	font-size: 60px;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 	font-weight: medium;
 }
 
@@ -158,7 +157,7 @@ a:hover #vk_auth {
 .product_info {
 	margin-left: 50px;
 	color: #633f5b;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 	font-size: 30px;
 }
 
@@ -175,7 +174,7 @@ a:hover #vk_auth {
 
 	text-align: center;
 	color: #633f5b;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 	font-size: 30px;
 }
 
@@ -190,7 +189,7 @@ a:hover #vk_auth {
 
 	text-align: center;
 	color: #FFFFFF;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 	font-size: 50px;
 }
 
@@ -203,7 +202,7 @@ a:hover #vk_auth {
 
 	text-align: center;
 	color: #633f5b;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 	font-size: 50px;
 }
 
@@ -224,7 +223,7 @@ img {
 	text-align: center;
 	color: #633f5b;
 	font-size: 30px;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 }
 
 .cart_table thead {
@@ -244,7 +243,7 @@ img {
 
 	text-align: center;
 	color: #633f5b;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 	font-size: 30px;
 }
 
@@ -260,6 +259,18 @@ img {
 
 	text-align: center;
 	color: #FFFFFF;
-	font-family: 'Lobster';
+	font-family: 'Cormorant Infant', serif;
 	font-size: 50px;
+}
+
+.pay_info {
+	margin: auto;
+	margin-top: 300px;
+	border: 3px solid #FFFFFF;
+	border-radius: 15px;
+
+	text-align: center;
+	color: #FFFFFF;
+	font-family: 'Cormorant Infant', serif;
+	font-size: 40px;
 }
