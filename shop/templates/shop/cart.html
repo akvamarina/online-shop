@@ -2,4 +2,31 @@
 
 {% block content %}
 	<div class="page_header">Ваша корзина</div>
+
+	<table class="cart_table">
+		<thead><tr>
+	        <th>Название</th>
+	        <th>Количество</th>
+	        <th>Стоимость</th>
+	    </tr></thead>
+	    <tbody>
+		    {% for product_cart in product_cart_list %}
+		    	<tr>
+		    		<th>{{ product_cart.product.name }}</th>
+		    		<th>{{ product_cart.quantity }}</th>
+		    		<th>{{ product_cart.total_price }}</th>
+		    	</tr>
+		    {% endfor %}
+		    <tr>
+		    	<th>Общая стоимость</th>
+		    	<th></th>
+		    	<th>{{ cart.total_price }}</th>
+		    </tr>
+	    </tbody>
+	</table>
+
+	<div class="checkout_btn">
+		Оформить заказ
+	<div>
+
 {% endblock %}

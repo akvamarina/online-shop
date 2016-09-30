@@ -1,22 +1,21 @@
 {% extends 'shop/base_menu.html' %}
 
 {% block content %}
-	<div class="page_header">Торты</div>
 
 	<table class="product_table">
 		{% for cake_info in cakes_list %}
 			<tr>
 				<td>
-					<div class="catalog">
-						<img src="{{ cake_info.photo }}"/>
-					</div>
+					<a href="{% url 'product' product_id=cake_info.id %}"><div class="catalog">
+							<img src="{{ cake_info.photo }}"/>
+						</div></a>
 				</td>
 				<td>
 					<div class="product_info"> 
 						<p> {{ cake_info.name }} </p>
-						<p> {{ cake_info.description }} </p>
+<!-- 						<p> {{ cake_info.description }} </p> -->
 						<p> Цена (1 шт.): {{ cake_info.price }} руб.</p>
-						<p> Осталось: {{ cake_info.quantity_on_stock }} </p>
+<!-- 						<p> Осталось: {{ cake_info.quantity_on_stock }} </p> -->
 					</div>
 				</td>
 			</tr>

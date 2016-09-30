@@ -1,0 +1,30 @@
+{% extends 'shop/base_menu.html' %}
+
+{% block content %}
+
+	<table class="product_table">
+			<tr>
+				<td>
+					<div class="catalog">
+						<img src="{{ product.photo }}"/>
+					</div>
+				</td>
+				<td>
+					<div class="product_info"> 
+						<p> {{ product.name }} </p>
+						<p> {{ product.description }} </p>
+						<p> Цена (1 шт.): {{ product.price }} руб.</p>
+						<p> Осталось: {{ product.quantity_on_stock }} </p>
+					</div>
+
+					<form method="POST" class="add_to_cart_form">{% csrf_token %}
+						{{ form.as_p }}
+						<button type="submit" class="add_to_cart_btn">
+							В корзину!
+						</button>
+					</form>
+				</td>
+			</tr>
+	</table>
+
+{% endblock %}
