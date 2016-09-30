@@ -15,12 +15,16 @@
 		    		<th>{{ product_cart.product.name }}</th>
 		    		<th>{{ product_cart.quantity }}</th>
 		    		<th>{{ product_cart.total_price }}</th>
+		    		<th><a href="{% url 'del_product' product_cart.id %}">
+		    			<div class="delete_btn">Удалить</div>
+		    		</a></th>
 		    	</tr>
 		    {% endfor %}
 		    <tr>
 		    	<th>Общая стоимость</th>
 		    	<th></th>
 		    	<th>{{ cart.total_price }}</th>
+		    	<th></th>
 		    </tr>
 	    </tbody>
 	</table>

@@ -53,6 +53,13 @@ class Cart(models.Model):
 		self.date_added = timezone.now()
 		self.save()
 
+	def delete(self, product_cart_id):
+		if ProductCart.objects.filter(id=product_cart_id).exists():
+			product_cart_del = ProductCart.objects.get(id=product_cart_id)
+			self.total_price -= product_cart_del.total_price
+			product_cart_del.delete()
+			self.save()
+
 
 class ProductCart(models.Model):
 	cart = models.ForeignKey('Cart')	#по умолчанию привязывается по первичному ключу (id)

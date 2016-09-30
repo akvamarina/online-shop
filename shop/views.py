@@ -73,6 +73,12 @@ def get_cart(request):
 	request.session['token'] = cart.token
 	return cart
 
+def del_product(request, product_cart_id):
+	cart = get_cart(request)
+	cart.delete(product_cart_id)
+	product_cart_list = ProductCart.objects.filter(cart=cart)
+	return render(request, 'shop/cart.html', {'cart': cart, 'product_cart_list': product_cart_list})
+
 @csrf_exempt
 def paypal_success(request):
 	cart = get_cart(request)
