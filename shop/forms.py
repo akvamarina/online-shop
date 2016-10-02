@@ -1,1 +1,12 @@
-[1;25r[0;10m[4l[?7h[?25h[?0c[39;49m[39;49m[0;10m[H[J[0;10;7m  GNU nano 2.2.6                New Buffer                                      [24;1H^G[0;10m Get Help  [0;10;7m^O[0;10m WriteOut  [0;10;7m^R[0;10m Read File [0;10;7m^Y[0;10m Prev Page [0;10;7m^K[0;10m Cut Text  [0;10;7m^C[0;10m Cur Pos[25d[0;10;7m^X[0;10m Exit[14G[0;10;7m^J[0;10m Justify   [0;10;7m^W[0;10m Where Is  [0;10;7m^V[0;10m Next Page [0;10;7m^U[0;10m UnCut Text[0;10;7m^T[0;10m To Spell[3d[23;16H[0;10;7m[ line 1/1 (100%), col 1/1 (100%), char 0/0 (0%) ][3d[0;10m[25;1HUse "fg" to return to nano.
+from django import forms
+from .models import ProductCart
+
+class ProductCartForm(forms.ModelForm):
+
+
+	class Meta:
+		model = ProductCart
+		fields = ('quantity',)
+		labels = {
+            'quantity': 'Количество',
+        }
