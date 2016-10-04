@@ -7,11 +7,12 @@ from django.core.urlresolvers import reverse
 from paypal.standard.forms import PayPalPaymentsForm
 import time
 import datetime
-from .models import Product
-from .models import Category
-from .models import Cart
-from .models import ProductCart
-from .forms import ProductCartForm
+from .models import *
+# from .models import Product
+# from .models import Category
+# from .models import Cart
+# from .models import ProductCart
+from .forms import *
 
 
 def main_page(request):
@@ -48,6 +49,10 @@ def product(request, product_id):
 			cart.add(product, product_cart.quantity)
 	form = ProductCartForm(initial={'quantity': 1})
 	return render(request, 'shop/catalog/product.html', {'product': product, 'form': form})
+
+def account_login(request):
+	auth_form = AuthUserForm()
+	return render(request, 'shop/login.html', {"auth_form": auth_form})
 
 @login_required
 def account_profile(request):

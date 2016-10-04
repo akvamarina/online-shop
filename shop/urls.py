@@ -1,6 +1,3 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from django.conf.urls import include, url
 from . import views		#импорт всех представлений из приложения shop
 import paypal.standard.ipn.urls
@@ -17,9 +14,11 @@ urlpatterns = [
 	url(r'^catalog/cupcakes/$', views.cupcakes, name='cupcakes'),
 	url(r'^catalog/cakes/$', views.cakes, name='cakes'),
 	url(r'^product/(?P<product_id>[0-9]+)/$', views.product, name='product'),
+	# auth
+	url(r'^accounts/login/$', views.account_login, name='login'),
 	url(r'^accounts/logout/$', views.account_logout, name='logout'),
     url(r'^accounts/profile/$', views.account_profile, name='profile'),
-    # 
+    # pay
     url(r'^payment/cart/$', views.paypal_pay, name='pay_cart'),
     url(r'^payment/success/$', views.paypal_success, name='success'),
     url(r'^paypal/', include(paypal.standard.ipn.urls)),

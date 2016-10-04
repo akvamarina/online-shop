@@ -274,3 +274,21 @@ a:hover .delete_btn {
 	font-family: 'Cormorant Infant', serif;
 	font-size: 40px;
 }
+
+.auth {
+	margin-top: 200px;
+	margin-left: 400px;
+	color: #633f5b;
+	font-family: 'Cormorant Infant', serif;
+	font-size: 50px;
+}
+
+.auth_form {
+	width: 200px;
+	height: 80px;
+
+	text-align: center;
+	color: #633f5b;
+	font-family: 'Cormorant Infant', serif;
+	font-size: 30px;
+}
