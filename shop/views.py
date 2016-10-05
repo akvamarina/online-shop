@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.urlresolvers import reverse
@@ -13,7 +13,6 @@ from .models import *
 # from .models import Cart
 # from .models import ProductCart
 from .forms import *
-from django.contrib.auth.forms import AuthenticationForm
 
 
 def main_page(request):
@@ -51,19 +50,32 @@ def product(request, product_id):
 	form = ProductCartForm(initial={'quantity': 1})
 	return render(request, 'shop/catalog/product.html', {'product': product, 'form': form})
 
-# def account_login(request):
-# 	# if request.user.is_authenticated():
-# 	# 	return redirect('account/profile/')
-# 	# if method == "POST":
-# 	# 	auth_form = AuthUserForm(request.POST)
-# 	# 	if form.is_valid():
+def account_login(request):
+	if request.user.is_authenticated():
+		return redirect('account/profile/')
+	if request.method == "POST":
+		auth_form = AuthUserForm(request.POST)
+		for key in request.POST:
+			print(key, request.POST[key])
+		if auth_form.is_valid():
+			user_model = auth_form.save(commit=False)
+			user = authenticate(username=user_model.email,
+				password=user_model.password)
+			if user is not None:
+				before_auth_cart = get_cart(request)
+				login(request, user)
+				if before_auth_cart.total_price > 0:
+					#привязать корзину к вошедшему пользователю
+					before_auth_cart.user = user
+					before_auth_cart.save()
+				return redirect('/accounts/profile/')
 
-# 	auth_form = AuthenticationForm()
-# 	return render(request, 'shop/login.html', {"auth_form": auth_form})
+	auth_form = AuthUserForm()
+	return render(request, 'shop/accounts/login.html', {"auth_form": auth_form})
 
 @login_required
 def account_profile(request):
-    return HttpResponse("Hello, {0}! Nice to meet you.".format(request.user.username))
+    return render(request, 'shop/accounts/profile.html', {})
 
 def account_logout(request):
     logout(request)
@@ -76,8 +88,8 @@ def cart(request):
 
 def get_cart(request):
 	if request.user.is_authenticated():
-		if Cart.objects.filter(user=request.user, archived=False).exists():
-			return Cart.objects.filter(user=request.user, archived=False).latest('date_added')
+		if Cart.objects.filter(user=request.user).exists():
+			return Cart.objects.filter(user=request.user).latest('date_added')
 		return Cart.objects.create(user=request.user)
 	if 'token' in request.session:
 		return Cart.objects.filter(token=request.session['token']).latest('date_added')
@@ -94,7 +106,6 @@ def del_product(request, product_cart_id):
 @csrf_exempt
 def paypal_success(request):
 	cart = get_cart(request)
-	cart.archived = True
 	cart.save()
 	return HttpResponse("Thanks.")
 
