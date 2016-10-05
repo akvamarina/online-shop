@@ -13,6 +13,7 @@ from .models import *
 # from .models import Cart
 # from .models import ProductCart
 from .forms import *
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def main_page(request):
@@ -50,13 +51,19 @@ def product(request, product_id):
 	form = ProductCartForm(initial={'quantity': 1})
 	return render(request, 'shop/catalog/product.html', {'product': product, 'form': form})
 
-def account_login(request):
-	auth_form = AuthUserForm()
-	return render(request, 'shop/login.html', {"auth_form": auth_form})
+# def account_login(request):
+# 	# if request.user.is_authenticated():
+# 	# 	return redirect('account/profile/')
+# 	# if method == "POST":
+# 	# 	auth_form = AuthUserForm(request.POST)
+# 	# 	if form.is_valid():
+
+# 	auth_form = AuthenticationForm()
+# 	return render(request, 'shop/login.html', {"auth_form": auth_form})
 
 @login_required
 def account_profile(request):
-    return HttpResponse("Hello, {0}! Nice to meet you.".format(request.user.first_name))
+    return HttpResponse("Hello, {0}! Nice to meet you.".format(request.user.username))
 
 def account_logout(request):
     logout(request)

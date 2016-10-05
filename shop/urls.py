@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from . import views		#импорт всех представлений из приложения shop
 import paypal.standard.ipn.urls
+import django.contrib.auth.views as auth_views
 
 
 urlpatterns = [
@@ -15,9 +16,10 @@ urlpatterns = [
 	url(r'^catalog/cakes/$', views.cakes, name='cakes'),
 	url(r'^product/(?P<product_id>[0-9]+)/$', views.product, name='product'),
 	# auth
-	url(r'^accounts/login/$', views.account_login, name='login'),
+	url(r'^accounts/login/$', auth_views.login, {'template_name': 'shop/login.html'}, name='login'),
+	# url(r'^accounts/login/$', views.account_login, name='login'),
 	url(r'^accounts/logout/$', views.account_logout, name='logout'),
-    url(r'^accounts/profile/$', views.account_profile, name='profile'),
+ 	url(r'^accounts/profile/$', views.account_profile, name='profile'),
     # pay
     url(r'^payment/cart/$', views.paypal_pay, name='pay_cart'),
     url(r'^payment/success/$', views.paypal_success, name='success'),

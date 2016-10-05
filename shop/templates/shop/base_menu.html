@@ -33,11 +33,11 @@
 						<a href="{% url 'logout' %}"><div class="auth_menu">
 							Выйти
 						</div></a>
-<!-- 						<a href="{% url 'profile' %}"><div class="auth_menu">
+						<a href="{% url 'profile' %}"><div class="auth_menu">
 							Профиль
-						</div></a> -->
+						</div></a>
 					{% else %}
-						<a href="/login/vk-oauth2/"><div class="auth_menu">
+						<a href="{% url 'login' %}"><div class="auth_menu">
 							Войти
 						</div></a>
 						<a href="/login/vk-oauth2/"><div class="auth_menu" id="vk_auth">
