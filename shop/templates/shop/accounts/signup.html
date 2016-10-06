@@ -3,6 +3,7 @@
 {% block content %}
 	<div class="auth">
 	    <form method="POST" class="auth_form">{% csrf_token %}
+	    	{{ create_user_form.non_field_errors }}
 	        {{ create_user_form.as_p }}
 	        <button type="submit" class="auth_btn">
 	            Зарегистрироваться

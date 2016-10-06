@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core.urlresolvers import reverse
 from paypal.standard.forms import PayPalPaymentsForm
 import time
@@ -51,43 +51,50 @@ def product(request, product_id):
 	form = ProductCartForm(initial={'quantity': 1})
 	return render(request, 'shop/catalog/product.html', {'product': product, 'form': form})
 
+@csrf_protect
 def account_login(request):
 	if request.user.is_authenticated():
 		return redirect('/accounts/profile/')
 	if request.method == "POST":
 		auth_user_form = AuthUserForm(request.POST)
-		# for key in request.POST:
-		# 	print(key, request.POST[key])
-		if auth_user_form.is_valid():
-			user_model = auth_user_form.save(commit=False)
-			#аккаунт привязывается email (без имени пользователя)
-			user = authenticate(username=user_model.email,
-				password=user_model.password)
-			if user is not None:
-				before_auth_cart = get_cart(request)
-				login(request, user)
-				if before_auth_cart.total_price > 0:
-					#привязать корзину к вошедшему пользователю
-					before_auth_cart.user = user
-					before_auth_cart.save()
-				return redirect('/accounts/profile/')
-
+		for key in request.POST:
+			print(key, request.POST[key])
+		if not auth_user_form.is_valid():
+			return render(request, 'shop/accounts/login.html', 
+				{"auth_user_form": auth_user_form})
+		user_model = auth_user_form.save(commit=False)
+		#аккаунт привязан к email (без имени пользователя)
+		user = authenticate(username=user_model.email,
+			password=user_model.password)
+		if user is not None:
+			login_user(request, user)
+			return redirect('/accounts/profile/')
 	auth_user_form = AuthUserForm()
 	return render(request, 'shop/accounts/login.html', {"auth_user_form": auth_user_form})
 
+@csrf_protect
 def account_signup(request):
 	if request.user.is_authenticated():
 		return redirect('/accounts/profile/')
 	if request.method == "POST":
-		create_user_form = UserCreationForm(request.POST)
+		create_user_form = CreateUserForm(request.POST)
 		for key in request.POST:
 			print(key, request.POST[key])
-		if create_user_form.is_valid():
-			user = create_user_form.save()
-			return redirect('/accounts/profile')
-
-	create_user_form = UserCreationForm()
+		if not create_user_form.is_valid():
+			return render(request, 'shop/accounts/signup.html', 
+				{"create_user_form": create_user_form})
+		user = create_user_form.save()
+		# login_user(request, user)
+		return redirect('/accounts/login/')
+	create_user_form = CreateUserForm()
 	return render(request, 'shop/accounts/signup.html', {"create_user_form": create_user_form})
+
+def login_user(request, user):
+	before_login_cart = get_cart(request)
+	login(request, user)
+	if before_login_cart.total_price > 0:
+		before_login_cart.user = user
+		before_login_cart.save()
 
 @login_required
 def account_profile(request):
