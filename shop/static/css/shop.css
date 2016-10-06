@@ -276,21 +276,39 @@ a:hover .delete_btn {
 }
 
 .auth {
+	margin: auto;
 	margin-top: 200px;
-	margin-left: 400px;
+	
+	text-align: center;
 	color: #633f5b;
 	font-family: 'Cormorant Infant', serif;
 	font-size: 50px;
 }
 
 .auth_form {
+	margin: auto;
 	width: 400px;
-	height: 80px;
 
 	color: #633f5b;
 	font-family: 'Cormorant Infant', serif;
 	font-size: 30px;
 }
+
+.auth_btn {
+	margin: auto;
+	width: 400px;
+	height: 70px;
+	background-color: #9d6f89;
+	border: 3px solid #FFFFFF;
+	border-radius: 15px;
+
+	text-align: center;
+	line-height: 1.5em;
+	color: #FFFFFF;
+	font-family: 'Cormorant Infant', serif;
+	font-size: 40px;
+}
+
 
 /* .user_info {
 	position: absolute;

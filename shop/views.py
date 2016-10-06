@@ -13,6 +13,7 @@ from .models import *
 # from .models import Cart
 # from .models import ProductCart
 from .forms import *
+from django.contrib.auth.forms import UserCreationForm
 
 
 def main_page(request):
@@ -52,13 +53,14 @@ def product(request, product_id):
 
 def account_login(request):
 	if request.user.is_authenticated():
-		return redirect('account/profile/')
+		return redirect('/accounts/profile/')
 	if request.method == "POST":
-		auth_form = AuthUserForm(request.POST)
-		for key in request.POST:
-			print(key, request.POST[key])
-		if auth_form.is_valid():
-			user_model = auth_form.save(commit=False)
+		auth_user_form = AuthUserForm(request.POST)
+		# for key in request.POST:
+		# 	print(key, request.POST[key])
+		if auth_user_form.is_valid():
+			user_model = auth_user_form.save(commit=False)
+			#аккаунт привязывается email (без имени пользователя)
 			user = authenticate(username=user_model.email,
 				password=user_model.password)
 			if user is not None:
@@ -70,8 +72,22 @@ def account_login(request):
 					before_auth_cart.save()
 				return redirect('/accounts/profile/')
 
-	auth_form = AuthUserForm()
-	return render(request, 'shop/accounts/login.html', {"auth_form": auth_form})
+	auth_user_form = AuthUserForm()
+	return render(request, 'shop/accounts/login.html', {"auth_user_form": auth_user_form})
+
+def account_signup(request):
+	if request.user.is_authenticated():
+		return redirect('/accounts/profile/')
+	if request.method == "POST":
+		create_user_form = UserCreationForm(request.POST)
+		for key in request.POST:
+			print(key, request.POST[key])
+		if create_user_form.is_valid():
+			user = create_user_form.save()
+			return redirect('/accounts/profile')
+
+	create_user_form = UserCreationForm()
+	return render(request, 'shop/accounts/signup.html', {"create_user_form": create_user_form})
 
 @login_required
 def account_profile(request):

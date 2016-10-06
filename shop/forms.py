@@ -27,4 +27,11 @@ class AuthUserForm(forms.ModelForm):
 
 
 
+# class CreateUserForm(forms.ModelForm):
+
+
+# 	class Meta:
+# 		model = User
+# 		fields = ('')
+
 
