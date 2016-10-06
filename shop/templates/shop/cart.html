@@ -29,8 +29,10 @@
 	    </tbody>
 	</table>
 
-	<a href="{% url 'pay_cart' %}"><div class="checkout_btn">
-		Оформить заказ
-	</div></a>
+	{% if product_cart_list %}
+		<a href="{% url 'pay' %}"><div class="checkout_btn">
+			Оформить заказ
+		</div></a>
+	{% endif %}
 
 {% endblock %}

@@ -44,7 +44,7 @@ class Cart(models.Model):
 	token = models.CharField(max_length=40, default=generate_token)
 	total_price = models.PositiveIntegerField(default=0)
 	date_added = models.DateTimeField(default=timezone.now)
-	# archived = models.BooleanField(default=False)
+	archived = models.BooleanField(default=False)
 
 	def add(self, product, quantity):
 		product_cart, created = ProductCart.objects.get_or_create(cart=self, 
