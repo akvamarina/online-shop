@@ -47,12 +47,9 @@ def product(request, product_id):
 @csrf_protect
 def account_login(request):
     if request.user.is_authenticated():
-        # return redirect('/accounts/profile/')
         return render(request, 'shop/accounts/profile.html', {})
     if request.method == "POST":
         auth_user_form = AuthUserForm(request.POST)
-        for key in request.POST:
-            print(key, request.POST[key])
         if not auth_user_form.is_valid():
             return render(request, 'shop/accounts/login.html', 
                 {"auth_user_form": auth_user_form})
@@ -62,7 +59,6 @@ def account_login(request):
             password=user_model.password)
         if user is not None:
             login_user(request, user)
-            # return redirect('/accounts/profile/')
             return render(request, 'shop/accounts/profile.html', {})
     auth_user_form = AuthUserForm()
     return render(request, 'shop/accounts/login.html', {"auth_user_form": auth_user_form})
@@ -70,19 +66,14 @@ def account_login(request):
 @csrf_protect
 def account_signup(request):
     if request.user.is_authenticated():
-        # return redirect('/accounts/profile/')
         return render(request, 'shop/accounts/profile.html', {})
     if request.method == "POST":
         create_user_form = CreateUserForm(request.POST)
-        for key in request.POST:
-            print(key, request.POST[key])
         if not create_user_form.is_valid():
             return render(request, 'shop/accounts/signup.html', 
                 {"create_user_form": create_user_form})
         user = create_user_form.save()
-        # login_user(request, user)
-        # return redirect('/accounts/login/')
-        return render(request, 'shop/accounts/profile.html', {})
+        return render(request, 'shop/accounts/login.html', {})
     create_user_form = CreateUserForm()
     return render(request, 'shop/accounts/signup.html', {"create_user_form": create_user_form})
 
@@ -103,7 +94,6 @@ def account_logout(request):
     if Cart.objects.filter(user=request.user, archived=False).exists():
         Cart.objects.filter(user=request.user, archived=False).delete()
     logout(request)
-    # return redirect('/')
     return render(request, 'shop/main_page.html', {})
 
 def cart(request):
