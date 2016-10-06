@@ -37,10 +37,11 @@ def product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if request.method == "POST":
         form = ProductCartForm(request.POST)
-        if form.is_valid():
-            product_cart = form.save(commit=False)
+        if form.is_valid(): #форма заполнена корректно, даже если количество - 0
+            product_cart_model = form.save(commit=False)
             cart = get_cart(request)
-            cart.add(product, product_cart.quantity)
+            #но товар добавится, только если количество больше 0 (см. Cart.add())
+            cart.add(product, product_cart_model.quantity)
     form = ProductCartForm(initial={'quantity': 1})
     return render(request, 'shop/catalog/product.html', {'product': product, 'form': form})
 

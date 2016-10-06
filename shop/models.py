@@ -47,12 +47,14 @@ class Cart(models.Model):
 	archived = models.BooleanField(default=False)
 
 	def add(self, product, quantity):
+		if quantity <= 0:
+			return
 		product_cart, created = ProductCart.objects.get_or_create(cart=self, 
 			product=product)
 		product_cart.quantity += quantity
 		product_cart.total_price += quantity * product.price
 		product_cart.save()
-		self.total_price += product_cart.total_price
+		self.total_price += quantity * product.price
 		self.date_added = timezone.now()
 		self.save()
 
