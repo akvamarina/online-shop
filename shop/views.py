@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -51,8 +51,6 @@ def account_login(request):
         return redirect(reverse('profile'))
     if request.method == "POST":
         auth_user_form = AuthUserForm(request.POST)
-        for key in request.POST:
-            print(key, request.POST[key])
         if not auth_user_form.is_valid():
             return render(request, 'shop/accounts/login.html', 
                 {"auth_user_form": auth_user_form})
@@ -62,24 +60,25 @@ def account_login(request):
             password=user_model.password)
         if user is not None:
             login_user(request, user)
-            return redirect(reverse('profile'))
+            # return redirect(reverse('profile'))
+            return render(request, 'shop/accounts/profile.html', {})
     auth_user_form = AuthUserForm()
     return render(request, 'shop/accounts/login.html', {"auth_user_form": auth_user_form})
 
 @csrf_protect
 def account_signup(request):
     if request.user.is_authenticated():
-        return redirect(reverse('profile'))
+        # return redirect(reverse('profile'))
+        render(request, 'shop/accounts/profile.html', {})
     if request.method == "POST":
         create_user_form = CreateUserForm(request.POST)
-        for key in request.POST:
-            print(key, request.POST[key])
         if not create_user_form.is_valid():
             return render(request, 'shop/accounts/signup.html', 
                 {"create_user_form": create_user_form})
         user = create_user_form.save()
-        # login_user(request, user)
-        return redirect(reverse('login'))
+        # return redirect(reverse('login'))
+        auth_user_form = AuthUserForm()
+        return render(request, 'shop/accounts/login.html', {"auth_user_form": auth_user_form})
     create_user_form = CreateUserForm()
     return render(request, 'shop/accounts/signup.html', {"create_user_form": create_user_form})
 
@@ -100,7 +99,8 @@ def account_logout(request):
     if Cart.objects.filter(user=request.user, archived=False).exists():
         Cart.objects.filter(user=request.user, archived=False).delete()
     logout(request)
-    return redirect(reverse('main_page')) 
+    # return redirect(reverse('main_page'))
+    return render(request, 'shop/main_page.html', {})
 
 def cart(request):
     cart = get_cart(request)
@@ -138,7 +138,7 @@ def payment_pay(request):
         "invoice": "INV-" + str(int(time.time())),
         "notify_url": reverse('paypal-ipn'),
         "return_url": "http://127.0.0.1:8000/payment/success/",
-        "cancel_return": "http://127.0.0.1:8000/payment/cart/",
+        "cancel_return": "http://127.0.0.1:8000/cart/",
         "custom": str(request.user.username)
     }
 
