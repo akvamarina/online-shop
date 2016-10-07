@@ -48,7 +48,7 @@ def product(request, product_id):
 @csrf_protect
 def account_login(request):
     if request.user.is_authenticated():
-        return redirect(reverse('profile'))
+        return redirect('profile')
     if request.method == "POST":
         auth_user_form = AuthUserForm(request.POST)
         if not auth_user_form.is_valid():
@@ -60,25 +60,21 @@ def account_login(request):
             password=user_model.password)
         if user is not None:
             login_user(request, user)
-            # return redirect(reverse('profile'))
-            return render(request, 'shop/accounts/profile.html', {})
+            return redirect('profile')
     auth_user_form = AuthUserForm()
     return render(request, 'shop/accounts/login.html', {"auth_user_form": auth_user_form})
 
 @csrf_protect
 def account_signup(request):
     if request.user.is_authenticated():
-        # return redirect(reverse('profile'))
-        render(request, 'shop/accounts/profile.html', {})
+        return redirect('profile')
     if request.method == "POST":
         create_user_form = CreateUserForm(request.POST)
         if not create_user_form.is_valid():
             return render(request, 'shop/accounts/signup.html', 
                 {"create_user_form": create_user_form})
         user = create_user_form.save()
-        # return redirect(reverse('login'))
-        auth_user_form = AuthUserForm()
-        return render(request, 'shop/accounts/login.html', {"auth_user_form": auth_user_form})
+        return redirect('login')
     create_user_form = CreateUserForm()
     return render(request, 'shop/accounts/signup.html', {"create_user_form": create_user_form})
 
@@ -99,8 +95,7 @@ def account_logout(request):
     if Cart.objects.filter(user=request.user, archived=False).exists():
         Cart.objects.filter(user=request.user, archived=False).delete()
     logout(request)
-    # return redirect(reverse('main_page'))
-    return render(request, 'shop/main_page.html', {})
+    return redirect('main_page') 
 
 def cart(request):
     cart = get_cart(request)
